@@ -9,11 +9,11 @@ async function debug() {
     await life.initial();
 
     life.restart({
-        CHR: 5,                     // 颜值 charm CHR
-        INT: 5,                     // 智力 intelligence INT
-        STR: 5,                     // 体质 strength STR
-        MNY: 5,                     // 家境 money MNY
-        SPR: 5,                     // 快乐 spirit SPR
+        CHR: 5,                     // 到面率 charm CHR
+        INT: 5,                     // 正常岗位需求 intelligence INT
+        STR: 5,                     // 生命 strength STR
+        MNY: 5,                     // 准时下班 money MNY
+        SPR: 5,                     // 人岗匹配 spirit SPR
         TLT: [1004, 1005, 1009],    // 天赋 talent TLT
     });
     const lifeTrajectory = [];
