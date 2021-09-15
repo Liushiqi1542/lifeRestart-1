@@ -126,7 +126,7 @@ class App{
                                 li.addClass('selected');
                                 this.#talentSelected.add(talent);
                                 if(this.#talentSelected.size==3) {
-                                    talentPage.find('#next').text('开始新人生')
+                                    talentPage.find('#next').text('开始新招聘')
                                 }
                             }
                         });
@@ -223,8 +223,8 @@ class App{
 
         groups.CHR = getBtnGroups("到面率", 0, 10); // 到面率 charm CHR
         groups.INT = getBtnGroups("正常岗位需求", 0, 10); // 正常岗位需求 intelligence INT
-        groups.STR = getBtnGroups("生命", 0, 10); // 生命 strength STR
-        groups.MNY = getBtnGroups("准时下班", 0, 10); // 准时下班 money MNY
+        groups.STR = getBtnGroups("不加班", 0, 10); // 不加班 strength STR
+        groups.MNY = getBtnGroups("邀约", 0, 10); // 邀约 money MNY
 
         const ul = propertyPage.find('#propertyAllocation');
 
@@ -268,7 +268,7 @@ class App{
                     INT: groups.INT.get(),
                     STR: groups.STR.get(),
                     MNY: groups.MNY.get(),
-                    SPR: 5,
+                    SPR: 0,
                     TLT: Array.from(this.#talentSelected).map(({id})=>id),
                 });
                 this.switch('trajectory');
@@ -285,7 +285,7 @@ class App{
         <div id="main">
             <ul id="lifeProperty" class="lifeProperty"></ul>
             <ul id="lifeTrajectory" class="lifeTrajectory"></ul>
-            <button id="summary" class="mainbtn" style="top:auto; bottom:0.1rem">人生总结</button>
+            <button id="summary" class="mainbtn" style="top:auto; bottom:0.1rem">职业总结</button>
         </div>
         `);
 
@@ -296,7 +296,7 @@ class App{
                 const trajectory = this.#life.next();
                 const { age, content, isEnd } = trajectory;
 
-                const li = $(`<li><span>${age}岁：</span>${
+                const li = $(`<li><span>${age}天：</span>${
                     content.map(
                         ({type, description, grade, name, postEvent}) => {
                             switch(type) {
@@ -319,11 +319,11 @@ class App{
                     // Update properties if not die yet
                     const property = this.#life.getLastRecord();
                     $("#lifeProperty").html(`
-                    <li>颜值：${property.CHR} </li>
-                    <li>智力：${property.INT} </li>
-                    <li>体质：${property.STR} </li>
-                    <li>家境：${property.MNY} </li>
-                    <li>快乐：${property.SPR} </li>`);
+                    <li>到面率：${property.CHR} </li>
+                    <li>正常岗位需求：${property.INT} </li>
+                    <li>不加班：${property.STR} </li>
+                    <li>邀约：${property.MNY} </li>
+                    <li>入职：${property.SPR} </li>`);
                 }
             });
 
@@ -336,14 +336,14 @@ class App{
         // Summary
         const summaryPage = $(`
         <div id="main">
-            <div class="head">人生总结</div>
+            <div class="head">职业总结</div>
             <ul id="judge" class="judge" style="bottom: calc(35% + 2.5rem)">
-                <li class="grade2"><span>颜值：</span>9级 美若天仙</li>
-                <li><span>智力：</span>4级 智力一般</li>
-                <li><span>体质：</span>1级 极度虚弱</li>
-                <li><span>家境：</span>6级 小康之家</li>
-                <li><span>享年：</span>3岁 早夭</li>
-                <li><span>快乐：</span>3级 不太幸福的人生</li>
+                <li class="grade2"><span>到面率：</span>9 如有神助</li>
+                <li><span>正常岗位需求：</span>4 和谐</li>
+                <li><span>不加班：</span>1 注意身体</li>
+                <li><span>邀约：</span>6 人岗匹配小能手</li>
+                <li><span>在岗：</span>3天 你想开了</li>
+                <li><span>入职人数：</span>3 高效</li>
             </ul>
             <div class="head" style="top:auto; bottom:35%">天赋，你可以选一个，下辈子还能抽到</div>
             <ul id="talents" class="selectlist" style="top:calc(65% + 0.5rem); bottom:8rem">
@@ -457,27 +457,27 @@ class App{
                     judge.append([
                         (()=>{
                             const { judge, grade, value } = s('CHR', max);
-                            return `<li class="grade${grade}"><span>颜值：</span>${value} ${judge}</li>`
+                            return `<li class="grade${grade}"><span>到面率：</span>${value} ${judge}</li>`
                         })(),
                         (()=>{
                             const { judge, grade, value } = s('INT', max);
-                            return `<li class="grade${grade}"><span>智力：</span>${value} ${judge}</li>`
+                            return `<li class="grade${grade}"><span>正常岗位需求：</span>${value} ${judge}</li>`
                         })(),
                         (()=>{
                             const { judge, grade, value } = s('STR', max);
-                            return `<li class="grade${grade}"><span>体质：</span>${value} ${judge}</li>`
+                            return `<li class="grade${grade}"><span>不加班：</span>${value} ${judge}</li>`
                         })(),
                         (()=>{
                             const { judge, grade, value } = s('MNY', max);
-                            return `<li class="grade${grade}"><span>家境：</span>${value} ${judge}</li>`
+                            return `<li class="grade${grade}"><span>邀约：</span>${value} ${judge}</li>`
                         })(),
                         (()=>{
                             const { judge, grade, value } = s('SPR', max);
-                            return `<li class="grade${grade}"><span>快乐：</span>${value} ${judge}</li>`
+                            return `<li class="grade${grade}"><span>入职人数：</span>${value} ${judge}</li>`
                         })(),
                         (()=>{
                             const { judge, grade, value } = s('AGE', max);
-                            return `<li class="grade${grade}"><span>享年：</span>${value} ${judge}</li>`
+                            return `<li class="grade${grade}"><span>在岗：</span>${value} ${judge}</li>`
                         })(),
                         (()=>{
                             const m = type=>max(records.map(({[type]: value})=>value));
