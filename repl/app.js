@@ -50,8 +50,8 @@ class App {
         this.#talentExtend = global.localStorage.talentExtend;
         await this.#life.initial();
         this.output(`\rLoading Complete.
-人生重开模拟器
-这垃圾人生一秒也不想待了
+招聘重开模拟器
+这垃圾岗位一秒也不想招了
 \n🎉键入 \x1B[4m/remake\x1B[24m 开始游戏`,
             true
         );
@@ -189,10 +189,10 @@ class App {
 
                 <TAG>   表示要分配的属性标签
                         可选有
-                            CHR, chr, c, C 表示颜值
-                            INT, int, i, I 表示智力
-                            STR, str, s, S 表示体质
-                            MNY, mny, m, M 表示家境
+                            CHR, chr, c, C 表示到面率
+                            INT, int, i, I 表示正常岗位需求
+                            STR, str, s, S 表示不加班
+                            MNY, mny, m, M 表示邀约
                         必填
 
                 <[+/-]value>
@@ -220,7 +220,7 @@ class App {
             case '/auto': return `自动播放
     at, auto, /auto    命令同等效果
 
-    效果                用于人生的过程中
+    效果                用于招聘的过程中
                         每个年龄会自动下一年
                         播放速度 1 秒 1 年`;
 
@@ -466,10 +466,10 @@ class App {
 剩余点数 ${this.less()}
 
 属性(TAG)       当前值
-颜值(CHR)         ${CHR}
-智力(INT)         ${INT}
-体质(STR)         ${STR}
-家境(MNY)         ${MNY}
+到面率(CHR)         ${CHR}
+正常岗位需求(INT)         ${INT}
+不加班(STR)         ${STR}
+邀约(MNY)         ${MNY}
         `
     }
 
@@ -565,12 +565,12 @@ class App {
 
         return [
             '🎉 总评',
-            judge('颜值', 'CHR', max),
-            judge('智力', 'INT', max),
-            judge('体质', 'STR', max),
-            judge('家境', 'MNY', max),
-            judge('快乐', 'SPR', max),
-            judge('享年', 'AGE', max),
+            judge('到面率', 'CHR', max),
+            judge('正常岗位需求', 'INT', max),
+            judge('不加班', 'STR', max),
+            judge('邀约', 'MNY', max),
+            judge('入职', 'SPR', max),
+            judge('做hr', 'AGE', max),
             (()=>{
                 const m = type=>max(records.map(({[type]: value})=>value));
                 const value = Math.floor(sum(m('CHR'), m('INT'), m('STR'), m('MNY'), m('SPR'))*2 + m('AGE')/2);
